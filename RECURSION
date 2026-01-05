@@ -1,0 +1,63 @@
+public class RecursionDSA {
+
+    // 1️⃣ Print Numbers from 1 to N
+    static void print1ToN(int n) {
+        if (n == 0) return;
+        print1ToN(n - 1);
+        System.out.print(n + " ");
+    }
+
+    // 2️⃣ Print Numbers from N to 1
+    static void printNTo1(int n) {
+        if (n == 0) return;
+        System.out.print(n + " ");
+        printNTo1(n - 1);
+    }
+
+    // 3️⃣ Factorial of a Number
+    static int factorial(int n) {
+        if (n == 0) return 1;
+        return n * factorial(n - 1);
+    }
+
+    // 4️⃣ Fibonacci Series
+    static int fibonacci(int n) {
+        if (n <= 1) return n;
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+
+    // 5️⃣ Sum of Digits
+    static int sumOfDigits(int n) {
+        if (n == 0) return 0;
+        return (n % 10) + sumOfDigits(n / 10);
+    }
+
+    // 6️⃣ Reverse a Number
+    static int reverseNumber(int n, int rev) {
+        if (n == 0) return rev;
+        return reverseNumber(n / 10, rev * 10 + n % 10);
+    }
+
+    // 7️⃣ Check Palindrome Number
+    static boolean isPalindrome(int n) {
+        return n == reverseNumber(n, 0);
+    }
+
+    // MAIN METHOD
+    public static void main(String[] args) {
+
+        System.out.print("1 to N: ");
+        print1ToN(5);
+        System.out.println();
+
+        System.out.print("N to 1: ");
+        printNTo1(5);
+        System.out.println();
+
+        System.out.println("Factorial: " + factorial(5));
+        System.out.println("Fibonacci(6): " + fibonacci(6));
+        System.out.println("Sum of Digits: " + sumOfDigits(1234));
+        System.out.println("Reverse Number: " + reverseNumber(1234, 0));
+        System.out.println("Is Palindrome? " + isPalindrome(121));
+    }
+}
