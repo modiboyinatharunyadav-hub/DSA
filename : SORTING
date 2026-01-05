@@ -1,0 +1,134 @@
+import java.util.*;
+
+public class SortingDSA {
+
+    // 1️⃣ Bubble Sort
+    static void bubbleSort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        System.out.println("Bubble Sort: " + Arrays.toString(arr));
+    }
+
+    // 2️⃣ Selection Sort
+    static void selectionSort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[min]) min = j;
+            }
+            int temp = arr[min];
+            arr[min] = arr[i];
+            arr[i] = temp;
+        }
+        System.out.println("Selection Sort: " + Arrays.toString(arr));
+    }
+
+    // 3️⃣ Insertion Sort
+    static void insertionSort(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = key;
+        }
+        System.out.println("Insertion Sort: " + Arrays.toString(arr));
+    }
+
+    // 4️⃣ Merge Sort
+    static void mergeSort(int[] arr, int l, int r) {
+        if (l < r) {
+            int m = (l + r) / 2;
+            mergeSort(arr, l, m);
+            mergeSort(arr, m + 1, r);
+            merge(arr, l, m, r);
+        }
+    }
+
+    static void merge(int[] arr, int l, int m, int r) {
+        int[] left = Arrays.copyOfRange(arr, l, m + 1);
+        int[] right = Arrays.copyOfRange(arr, m + 1, r + 1);
+
+        int i = 0, j = 0, k = l;
+        while (i < left.length && j < right.length) {
+            arr[k++] = (left[i] <= right[j]) ? left[i++] : right[j++];
+        }
+        while (i < left.length) arr[k++] = left[i++];
+        while (j < right.length) arr[k++] = right[j++];
+    }
+
+    // 5️⃣ Quick Sort
+    static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int p = partition(arr, low, high);
+            quickSort(arr, low, p - 1);
+            quickSort(arr, p + 1, high);
+        }
+    }
+
+    static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+        return i + 1;
+    }
+
+    // 6️⃣ Check if Array is Sorted
+    static void isSorted(int[] arr) {
+        boolean sorted = true;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < arr[i - 1]) {
+                sorted = false;
+                break;
+            }
+        }
+        System.out.println("Is Sorted? " + sorted);
+    }
+
+    // 7️⃣ Sort Using Java Built-in Method
+    static void builtInSort(int[] arr) {
+        Arrays.sort(arr);
+        System.out.println("Built-in Sort: " + Arrays.toString(arr));
+    }
+
+    // MAIN METHOD
+    public static void main(String[] args) {
+        int[] arr1 = {5, 3, 8, 4, 2};
+        int[] arr2 = arr1.clone();
+        int[] arr3 = arr1.clone();
+        int[] arr4 = arr1.clone();
+        int[] arr5 = arr1.clone();
+
+        bubbleSort(arr1);
+        selectionSort(arr2);
+        insertionSort(arr3);
+
+        mergeSort(arr4, 0, arr4.length - 1);
+        System.out.println("Merge Sort: " + Arrays.toString(arr4));
+
+        quickSort(arr5, 0, arr5.length - 1);
+        System.out.println("Quick Sort: " + Arrays.toString(arr5));
+
+        isSorted(arr5);
+        builtInSort(arr5);
+    }
+}
