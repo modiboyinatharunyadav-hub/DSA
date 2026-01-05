@@ -1,0 +1,71 @@
+import java.util.*;
+
+public class ArrayDSA {
+
+    // 1️⃣ Reverse an Array
+    static void reverseArray(int[] arr) {
+        int l = 0, r = arr.length - 1;
+        while (l < r) {
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+            l++;
+            r--;
+        }
+        System.out.println("Reversed Array: " + Arrays.toString(arr));
+    }
+
+    // 2️⃣ Find Maximum Element in Array
+    static void findMax(int[] arr) {
+        int max = arr[0];
+        for (int i : arr) {
+            if (i > max) max = i;
+        }
+        System.out.println("Maximum Element: " + max);
+    }
+
+    // 3️⃣ Find Minimum Element in Array
+    static void findMin(int[] arr) {
+        int min = arr[0];
+        for (int i : arr) {
+            if (i < min) min = i;
+        }
+        System.out.println("Minimum Element: " + min);
+    }
+
+    // 4️⃣ Check if Array is Sorted
+    static void isSorted(int[] arr) {
+        boolean sorted = true;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < arr[i - 1]) {
+                sorted = false;
+                break;
+            }
+        }
+        System.out.println("Is Array Sorted? " + sorted);
+    }
+
+    // 5️⃣ Find Sum of Array Elements
+    static void arraySum(int[] arr) {
+        int sum = 0;
+        for (int i : arr) sum += i;
+        System.out.println("Sum of Array: " + sum);
+    }
+
+    // 6️⃣ Linear Search in Array
+    static void linearSearch(int[] arr, int key) {
+        int index = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key) {
+                index = i;
+                break;
+            }
+        }
+        System.out.println("Element found at index: " + index);
+    }
+
+    // 7️⃣ Count Even and Odd Numbers
+    static void countEvenOdd(int[] arr) {
+        int even = 0, odd = 0;
+        for (int i : arr) {
+            if (i % 2 == 0)
