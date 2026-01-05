@@ -1,0 +1,122 @@
+public class LinkedListDSA {
+
+    // Node Structure
+    static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    static Node head;
+
+    // 1️⃣ Insert at Beginning
+    static void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // 2️⃣ Insert at End
+    static void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node temp = head;
+        while (temp.next != null)
+            temp = temp.next;
+        temp.next = newNode;
+    }
+
+    // 3️⃣ Delete a Node (by value)
+    static void deleteNode(int key) {
+        if (head == null) return;
+
+        if (head.data == key) {
+            head = head.next;
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next != null && temp.next.data != key)
+            temp = temp.next;
+
+        if (temp.next != null)
+            temp.next = temp.next.next;
+    }
+
+    // 4️⃣ Search an Element
+    static void search(int key) {
+        Node temp = head;
+        int pos = 0;
+        while (temp != null) {
+            if (temp.data == key) {
+                System.out.println("Found at position: " + pos);
+                return;
+            }
+            pos++;
+            temp = temp.next;
+        }
+        System.out.println("Element not found");
+    }
+
+    // 5️⃣ Reverse Linked List
+    static void reverse() {
+        Node prev = null, curr = head, next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
+
+    // 6️⃣ Find Length of Linked List
+    static void length() {
+        int count = 0;
+        Node temp = head;
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+        System.out.println("Length: " + count);
+    }
+
+    // 7️⃣ Display Linked List
+    static void display() {
+        Node temp = head;
+        System.out.print("Linked List: ");
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("NULL");
+    }
+
+    // MAIN METHOD
+    public static void main(String[] args) {
+
+        insertAtBeginning(3);
+        insertAtBeginning(2);
+        insertAtBeginning(1);
+
+        insertAtEnd(4);
+        insertAtEnd(5);
+
+        display();
+        length();
+        search(3);
+
+        deleteNode(3);
+        display();
+
+        reverse();
+        display();
+    }
+}
