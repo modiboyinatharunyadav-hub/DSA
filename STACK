@@ -1,0 +1,160 @@
+import java.util.*;
+
+public class StackDSA {
+
+    // 1️⃣ Stack using Array
+    static class StackArray {
+        int top = -1;
+        int size;
+        int[] arr;
+
+        StackArray(int size) {
+            this.size = size;
+            arr = new int[size];
+        }
+
+        void push(int x) {
+            if (top == size - 1) {
+                System.out.println("Stack Overflow");
+                return;
+            }
+            arr[++top] = x;
+        }
+
+        int pop() {
+            if (top == -1) {
+                System.out.println("Stack Underflow");
+                return -1;
+            }
+            return arr[top--];
+        }
+
+        int peek() {
+            return (top == -1) ? -1 : arr[top];
+        }
+    }
+
+    // 2️⃣ Reverse String using Stack
+    static void reverseString(String s) {
+        Stack<Character> st = new Stack<>();
+        for (char ch : s.toCharArray()) st.push(ch);
+
+        String rev = "";
+        while (!st.isEmpty()) rev += st.pop();
+        System.out.println("Reversed String: " + rev);
+    }
+
+    // 3️⃣ Check Balanced Parentheses
+    static void isBalanced(String s) {
+        Stack<Character> st = new Stack<>();
+        for (char ch : s.toCharArray()) {
+            if (ch == '(' || ch == '{' || ch == '[')
+                st.push(ch);
+            else {
+                if (st.isEmpty()) {
+                    System.out.println("Not Balanced");
+                    return;
+                }
+                char top = st.pop();
+                if ((ch == ')' && top != '(') ||
+                    (ch == '}' && top != '{') ||
+                    (ch == ']' && top != '[')) {
+                    System.out.println("Not Balanced");
+                    return;
+                }
+            }
+        }
+        System.out.println(st.isEmpty() ? "Balanced" : "Not Balanced");
+    }
+
+    // 4️⃣ Next Greater Element
+    static void nextGreaterElement(int[] arr) {
+        Stack<Integer> st = new Stack<>();
+        int[] res = new int[arr.length];
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!st.isEmpty() && st.peek() <= arr[i])
+                st.pop();
+            res[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(arr[i]);
+        }
+
+        System.out.println("Next Greater Elements:");
+        for (int i = 0; i < arr.length; i++)
+            System.out.println(arr[i] + " -> " + res[i]);
+    }
+
+    // 5️⃣ Evaluate Postfix Expression
+    static void evaluatePostfix(String exp) {
+        Stack<Integer> st = new Stack<>();
+        for (char ch : exp.toCharArray()) {
+            if (Character.isDigit(ch))
+                st.push(ch - '0');
+            else {
+                int b = st.pop();
+                int a = st.pop();
+                switch (ch) {
+                    case '+': st.push(a + b); break;
+                    case '-': st.push(a - b); break;
+                    case '*': st.push(a * b); break;
+                    case '/': st.push(a / b); break;
+                }
+            }
+        }
+        System.out.println("Postfix Evaluation: " + st.pop());
+    }
+
+    // 6️⃣ Find Minimum Element in Stack
+    static void findMin(Stack<Integer> st) {
+        int min = Integer.MAX_VALUE;
+        for (int x : st) min = Math.min(min, x);
+        System.out.println("Minimum Element: " + min);
+    }
+
+    // 7️⃣ Stack using Linked List
+    static class StackLL {
+        Node top;
+        static class Node {
+            int data;
+            Node next;
+            Node(int d) { data = d; }
+        }
+
+        void push(int x) {
+            Node newNode = new Node(x);
+            newNode.next = top;
+            top = newNode;
+        }
+
+        int pop() {
+            if (top == null) return -1;
+            int x = top.data;
+            top = top.next;
+            return x;
+        }
+    }
+
+    // MAIN METHOD
+    public static void main(String[] args) {
+
+        StackArray sa = new StackArray(5);
+        sa.push(10);
+        sa.push(20);
+        sa.push(30);
+        System.out.println("Popped: " + sa.pop());
+
+        reverseString("stack");
+        isBalanced("{[()]}");
+
+        int[] arr = {4, 5, 2, 25};
+        nextGreaterElement(arr);
+
+        evaluatePostfix("23*54*+9-");
+
+        Stack<Integer> st = new Stack<>();
+        st.push(3);
+        st.push(5);
+        st.push(1);
+        findMin(st);
+    }
+}
